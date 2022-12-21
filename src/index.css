@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Oswald:wght@200;500;600&display=swap');
+
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Oswald', 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.7px;
+    background-color: #490505 !important; 
+    color:aqua;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Oswald', 'Helvetica Neue';
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+h3 {
+    font-size: 16px;
+}
+
+.btn,
+.btn-dark,
+.btn-check:focus + .btn-dark,
+.btn-dark:focus,
+.btn-check:focus + .btn,
+.btn:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.btn-dark:hover {
+    background: #1f3a55;
+}
+
+.bg-primary,
+.btn-light {
+    letter-spacing: 0.7px;
+}
+
+ul, li {
+    text-align: left !important;
+}
+
+
+.bg-blue {
+    background-color: rgb(5, 73, 51);
+}
+.bg-dark {
+    background-color: rgb(5, 75, 53) !important;
+
+}
+
+.choosePage {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+.choosePage:hover {
+    color: rgb(192, 240, 183);
+    
+  }
+
+
