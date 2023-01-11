@@ -4,49 +4,55 @@ import Quiz from './components/Quiz';
 import Result from './components/Result';
 
 function App() {
-  
-  const [quizs, setQuizs] = useState([]);
-  const [question, setQuesion] = useState({});
+  // All Quizs, Current Question, Index of Current Question, Answer, Selected Answer, Total Marks
+  //Усі квізи, поточне питання, індекс поточного питання, відповідь, обране питання, бали
+  const [quizs, setQuizs] = useState([]); //Обьект с вопросами-ответами
+  const [question, setQuesion] = useState({}); //Обьект c id, вопросами и ответом
   const [questionIndex, setQuestionIndex] = useState(0);
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [marks, setMarks] = useState(0);
 
-
+  // Стейти для відображення
   const [showStart, setShowStart] = useState(true);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [start, setStart] = useState(false);
-
-  
+  const [startTimer, setStartTimer] = useState(false); //Старт/Стоп таймера
+//Стейт часу, за який пройдено тест
+  const [time, setTime] = useState(0);
+  //Стейт таймера
   const [timeLeft, setTimeLeft] = useState(60);
  
 
-
-
- 
+  //Завантажуємо JSON
   useEffect(() => {
     fetch('quiz.json')
       .then(res => res.json())
       .then(data => setQuizs(data))
   }, []);
 
-
+  
   useEffect(() => {
+    //Якщо довжина quizs.length меньше за question.index - завантажуємо питання
     if (quizs.length > questionIndex) {
       setQuesion(quizs[questionIndex]);
     }
   }, [quizs, questionIndex])
 
- 
+
+
+
+  
+//Пропс Start.quiz
+//Керує трьома станам - false Start.js i  показом Quiz.js, а також старт таймера
   const startQuiz = () => {
     setShowStart(false);
     setShowQuiz(true);
-    setStart(true);
+    setStartTimer(true); //Установлен, чтобы таймер не стартовал сам по себе
   }
 
- 
-  const checkAnswer = (event, selected) => {
+  //Перевірка відповіді, застосування стилів та підрахунок балів
+  const checkAnswer = (event, selected  ) => {
     if (!selectedAnswer) {
       setCorrectAnswer(question.answer);
       setSelectedAnswer(selected);
@@ -61,7 +67,7 @@ function App() {
 
   }
 
-
+  // onClick для наступного питання (пропс Quiz.js) - прибирає обрану відповідь і стилі відповідей, перезавтанжуючи таймер
   const nextQuestion = () => {
     setCorrectAnswer('');
     setSelectedAnswer('');
@@ -71,16 +77,17 @@ function App() {
     rightBtn?.classList.remove('bg-success');
     setQuestionIndex(questionIndex + 1);
     setTimeLeft(60);
-    setStart(true);
+    setStartTimer(true);
   }
 
+  //onClick для показу результату (пропс Quiz.js)
   const showTheResult = () => {
     setShowResult(true);
-    setShowStart(false);
-    setShowQuiz(false);
+    setShowStart(false); //display none
+    setShowQuiz(false); //display none
   }
 
-
+  //onClick для рестарту (пропс Result.js)
   const startOver = () => {
     setShowStart(false);
     setShowResult(false);
@@ -94,19 +101,19 @@ function App() {
     const rightBtn = document.querySelector('button.bg-success');
     rightBtn?.classList.remove('bg-success');
     setTimeLeft(60);
-    setStart(true);
+    setStartTimer(true);
+    setTime(1);
   }
 
   return (
     <>
-      {/* Welcome Page */}
-      
+      {/*Старт-пейдж */}
       <Start
         startQuiz={startQuiz}
         showStart={showStart}
       />
 
-      {/* Quiz Page */}
+      {/* Квіз */}
       <Quiz
         showQuiz={showQuiz}
         question={question}
@@ -117,18 +124,22 @@ function App() {
         questionIndex={questionIndex}
         nextQuestion={nextQuestion}
         showTheResult={showTheResult}
-        start={start}
+        startTimer={startTimer}
         timeLeft={timeLeft}
         setTimeLeft={setTimeLeft}
-        setStart={setStart}
+        setStartTimer={setStartTimer}
+        setTime={setTime}
+        time={time}
       />
 
-      {/* Result Page */}
+      {/* Результат */}
       <Result
         showResult={showResult}
         quizs={quizs}
         marks={marks}
-        startOver={startOver} />
+        startOver={startOver}
+        time={time} />
+        
     </>
   );
 }
