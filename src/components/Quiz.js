@@ -44,7 +44,7 @@ const Quiz = ({ quizs, showQuiz, question,  checkAnswer, correctAnswer, selected
                             <div>
                             {/*Создаем список вопросов из пропса question*/}
                                 { 
-                                //Тут можно перетасовать вопросы
+                                
                                 
                                     question?.options?.map((item, index) => <button
                                         key={index}
@@ -65,7 +65,7 @@ const Quiz = ({ quizs, showQuiz, question,  checkAnswer, correctAnswer, selected
                             { 
 
                                 //Условный рендеринг в зависимости от длинны quizs.length 
-                                //Если questionIndex != quizs.length, значит продолжаем, иначе - показываем результати && 
+                                //Если questionIndex != quizs.length, значит продолжаем, иначе - показываем результат
                                 (questionIndex + 1) !== quizs.length && seconds > 1 ? 
                                     <button className='btn py-2 w-100 mt-3 bg-primary text-light fw-bold' onClick={nextQuestion} disabled={!selectedAnswer}>Наступне питання</button>
                                     :
